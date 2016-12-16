@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>logReg</title>
+	<style type="text/css" media="screen">
+		form {
+			width:300px;
+			margin: auto;
+			vertical-align: top
+		}
+		form input {
+			display: block;
+		}
+		.messagesClass {
+			width:300px;
+			margin:auto;
+			color:red;
+		}
+	</style>
+</head>
+<body>
+	{% if messages %}
+	<div class="messagesClass">
+	    {% for message in messages %}
+	    	<p>{{ message }}</p>
+	    {% endfor %}
+	</div>
+	{% endif %}
+
+
+
+	<form action="/new" method="post">
+		<fieldset>
+			{% csrf_token %}
+			<legend>Register</legend>
+			First Name:<input type="text" name="first_name">
+			Last Name:<input type="text" name="last_name">
+			Email: <input type="text" name="email">
+			Password: <input type="text" name="password">
+			Re-Enter Password:<input type="text" name="passwordCheck">
+			<input type="submit" >
+		</fieldset>
+	</form>	
+
+
+	<form action="/signOn" method="post">
+		{% csrf_token %}
+		<fieldset>
+			<legend>Login</legend>
+			Email: <input type="text" name="email">
+			Password: <input type="text" name="password">
+			<input type="submit" >
+		</fieldset>
+	</form>
+
+
+
+</body>
+</html>
