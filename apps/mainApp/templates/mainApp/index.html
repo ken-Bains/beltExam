@@ -33,12 +33,13 @@
 		<fieldset>
 			{% csrf_token %}
 			<legend>Registration</legend>
-			First Name:<input type="text" name="first_name">
-			Last Name:<input type="text" name="last_name">
+			Name:<input type="text" name="first_name">
+			Alias:<input type="text" name="alias">
 			Email: <input type="text" name="email">
 			Password: <input type="text" name="password">
 			Re-Enter Password:<input type="text" name="passwordCheck">
-			<input type="submit" >
+<!-- 			Birthday: <input type="date" name="bday">
+ -->			<input type="submit" >
 		</fieldset>
 	</form>	
 

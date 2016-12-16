@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>user </title>
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'mainApp/css/mainApp.css' %}">
+</head>
+<body>
+<div class="main_wrapper">
+		<div class="header">
+			<a href="/success" class="first_link">Dashboard</a>
+			<a href="/logout">Logout</a>
+		</div> <!-- end of header -->
+		<div class="main_content">
+			<h2>Post By: {{user.first_name.title}}</h2>
+			<h3>Count: {{quotes|length}}</h3>
+			<hr>
+			{% for quote in quotes %}
+				<fieldset>
+					<legend>Author: {{quote.author}}</legend>
+					<h5>Quote: {{quote.quote}}</h5>
+				</fieldset>
+			{% endfor %}
+
+		
+		</div> <!-- end of main content -->
+	</div><!-- end of main_wrapper -->
+</body>
+</html>

@@ -30,14 +30,42 @@ def processSignon(request, res, message):
 
 def success(request):
 	if request.session.get('id'):
+
+
 		userInfo = models.User.objects.filter(id = request.session['id'])
-		data = {"user":userInfo[0]}
+		quotes = models.Quote.objects.all().order_by('-created_at')
+		# quotes = models.Favorite.objects.all().exclude(user__id=request.session['id'])
+		favs = models.Favorite.objects.filter(user__id = request.session['id']).order_by('-created_at')
+
+
+		data = {"user":userInfo[0], "quotes": quotes, "favs":favs}
 		return render(request, "mainApp/success.html", data)
 	return redirect('/')
 
+def add_quote(request):
+	response = models.Quote.objects.addQuote(request.POST, request.session['id'])
+	if not response:
+		return redirect('/success')
+	
+	for error in response:
+		messages.warning(request, error)
+	return redirect('/success')
 
+def add_to_fav(request, id):
+	models.Quote.objects.addFav(id, request.session['id'])
+	return redirect('/success')
 
+def remove_fav(request, id):
+	models.Favorite.objects.filter(id = id).delete()
+	return redirect('/success')
 
+def user_page(request, id):
+	quotes = models.Quote.objects.filter(user__id = id)
+	userInfo = models.User.objects.filter(id = id)
 
+	data = {"quotes":quotes, "user": userInfo[0]}
+	return render(request, 'mainApp/user_page.html', data)
 
-
+def logout(request):
+	request.session.clear()
+	return redirect('/')
